@@ -25,7 +25,7 @@ THEN I can save my initials and my score
 ```
 ## Demo
 <!-- ![CodeQuiz Demo](./assets/images/codequiz4demo.gif)  -->
-<img src="./assets/images/codequiz4demo.gif" alt="Alt Text" width="1080" height="500">
+<img src="./assets/images/codequiz4demo.gif" alt="application_demo" width="fit-content">
 
 ## Deployment
 
