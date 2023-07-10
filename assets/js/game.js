@@ -18,7 +18,7 @@ var questionCounter = 0;
 var availableQuestions = [];
 var timeRemaining = GAME_TIME;
 
-// Array of question objects
+// Array of question objects 
 var questions = [
     {
         question: 'Which HTML tag is used to create a hyperlink?',

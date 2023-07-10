@@ -1,3 +1,4 @@
+ /* Imported google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
 :root {
@@ -128,7 +129,10 @@ input::placeholder {
 
 #saveScoreBtn {
     border: none;
+    
 }
+
 #clear-scores-button {
     border: none;
+    background: #8A307F;
 }

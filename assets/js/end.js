@@ -6,7 +6,7 @@ var mostRecentScore = localStorage.getItem('mostRecentScore');
 
 var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
-var MAX_HIGH_SCORES = 5;
+var MAX_HIGH_SCORES = 6;
 
 finalScore.innerText = mostRecentScore;
 
