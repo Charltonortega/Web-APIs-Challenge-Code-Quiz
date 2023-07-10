@@ -50,6 +50,6 @@ THEN I can save my initials and my score
 
 ## Deployment
 
-The URL of the deployed application: EDIT HERE LATER!!!!!!!!
+The URL of the deployed application: https://charltonortega.github.io/Web-APIs-Challenge-Code-Quiz/
 
 The URL of the GitHub repository: https://github.com/Charltonortega/Web-APIs-Challenge-Code-Quiz
