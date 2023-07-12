@@ -1,31 +1,32 @@
 // Selecting DOM elements
-var questionElement = document.querySelector('#question');
-var choiceElements = Array.from(document.querySelectorAll('.choice-text'));
-var progressText = document.querySelector('#progressText');
-var scoreText = document.querySelector('#score');
-var progressBarFull = document.querySelector('#progressBarFull');
-var timerText = document.querySelector('#timer');
+var quizQuestionElement = document.querySelector('#question');
+var answerChoiceElements = Array.from(document.querySelectorAll('.choice-text'));
+var progressIndicatorElement = document.querySelector('#progressText');
+var playerScoreElement = document.querySelector('#score');
+var progressBarElement = document.querySelector('#progressBarFull');
+var countdownTimerElement = document.querySelector('#timer');
 
 // Game configuration variables
-var GAME_TIME = 60;
-var PENALTY = 10;
+var totalQuizTime = 60;
+var incorrectAnswerPenalty = 10;
 
 // Game state variables
-var currentQuestion = {};
-var acceptingAnswers = true;
-var score = 0;
-var questionCounter = 0;
-var availableQuestions = [];
-var timeRemaining = GAME_TIME;
+var activeQuestion = {};
+var answerSubmissionOpen = true;
+var playerScore = 0;
+var questionIndex = 0;
+var unansweredQuestions = [];
+var remainingTime = totalQuizTime;
 
 // Array of question objects 
-var questions = [
+var quizQuestions = [
     {
+        // Question 1
         question: 'Which HTML tag is used to create a hyperlink?',
         choices: ['<a>', '<link>', '<h1>', '<p>'],
         answer: 0,
     },
-    {
+    {// Question 2
         question: 'Which CSS property is used to specify the font of an element?',
         choices: ['font-size', 'font-family', 'font-style', 'font-color'],
         answer: 1,
@@ -75,127 +76,117 @@ var questions = [
         choices: ['+', '-', '*', '&'],
         answer: 0,
       }
-    
 ];
 
-var SCORE_POINTS = 100;
-var MAX_QUESTIONS = questions.length;
+var pointsPerCorrectAnswer = 100;
+var maximumNumberOfQuestions = quizQuestions.length;
 
-/**
- * Initializes the quiz game.
- */
-function initGame() {
-    questionCounter = 0;
-    score = 0;
-    availableQuestions = [...questions];
-    getNewQuestion();
-    startTimer();
-}
 
-/**
- * Displays a new question and its choices.
- */
-function getNewQuestion() {
-    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-        endGame();
-        return;
-    }
+//  Starts the countdown timer and ends the game when time runs out.
+function initiateCountdown() {
+    displayRemainingTime();
+    var countdownInterval = setInterval(function () {
+        remainingTime--;
+        displayRemainingTime();
 
-    questionCounter++;
-    progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`;
-    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
-
-    var questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions[questionIndex];
-    questionElement.innerText = currentQuestion.question;
-
-    choiceElements.forEach(function (choice, index) {
-        choice.innerText = currentQuestion.choices[index];
-    });
-
-    availableQuestions.splice(questionIndex, 1);
-    acceptingAnswers = true;
-}
-
-/**
- * Handles user's answer selection.
- * @param {Event} event The click event object
- */
-function handleAnswerSelection(event) {
-    if (!acceptingAnswers) return;
-
-    acceptingAnswers = false;
-    var selectedChoice = event.target;
-    var selectedAnswer = choiceElements.indexOf(selectedChoice);
-    var isCorrect = selectedAnswer === currentQuestion.answer;
-
-    if (isCorrect) {
-        incrementScore(SCORE_POINTS);
-    } else {
-        decrementTime(PENALTY);
-    }
-
-    selectedChoice.classList.add(isCorrect ? 'correct' : 'incorrect');
-
-    setTimeout(function () {
-        selectedChoice.classList.remove('correct', 'incorrect');
-        getNewQuestion();
-    }, 1000);
-}
-
-/**
- * Increments the score by the specified amount and updates the score display.
- * @param {number} points The points to increment the score by
- */
-function incrementScore(points) {
-    score += points;
-    scoreText.innerText = score;
-}
-
-/**
- * Decrements the remaining time by the specified amount and updates the timer display.
- * @param {number} penalty The penalty to subtract from the time
- */
-function decrementTime(penalty) {
-    timeRemaining = Math.max(0, timeRemaining - penalty);
-    renderTime();
-}
-
-/**
- * Renders the remaining time on the timer display.
- */
-function renderTime() {
-    timerText.innerText = timeRemaining;
-}
-
-/**
- * Starts the timer countdown and ends the game when time runs out.
- */
-function startTimer() {
-    renderTime();
-    var timerInterval = setInterval(function () {
-        timeRemaining--;
-        renderTime();
-
-        if (timeRemaining <= 0) {
-            clearInterval(timerInterval);
-            endGame();
+        if (remainingTime <= 0) {
+            clearInterval(countdownInterval);
+            endQuiz();
         }
     }, 1000);
 }
 
-/**
- * Ends the game and redirects to the end game page.
- */
-function endGame() {
-    localStorage.setItem('mostRecentScore', score);
+//  Updates the timer display with the remaining time.
+
+function displayRemainingTime() {
+    countdownTimerElement.innerText = remainingTime;
+}
+
+
+//  This function reduces the remaining time by the specified penalty and updates the timer display.
+//  10 seconds is subtracted from the time
+ 
+function applyTimePenalty(penalty) {
+    remainingTime = Math.max(0, remainingTime - penalty);
+    displayRemainingTime();
+}
+
+
+//This function ncreases the player score by the specified amount and updates the score display.
+//100points will be added to player score per correct selection.
+
+function updatePlayerScore(points) {
+    playerScore += points;
+    playerScoreElement.innerText = playerScore;
+}
+
+// Processes the player's answer selection.
+
+function submitAnswer(event) {
+    if (!answerSubmissionOpen) return;
+
+    answerSubmissionOpen = false;
+    var selectedChoiceElement = event.target;
+    var selectedAnswerIndex = answerChoiceElements.indexOf(selectedChoiceElement);
+    var isCorrectAnswer = selectedAnswerIndex === activeQuestion.answer;
+// If the answer is correct, the selected choice element is removed from the list of unanswered questions.  
+    if (isCorrectAnswer) {
+        updatePlayerScore(pointsPerCorrectAnswer);
+    } else {
+        applyTimePenalty(incorrectAnswerPenalty);
+    }
+
+// If the answer is correct, the selected choice element is added to the list of unanswered questions.
+    selectedChoiceElement.classList.add(isCorrectAnswer ? 'correct' : 'incorrect');
+// The selected choice element is removed from the list of unanswered questions.
+    setTimeout(function () {
+        selectedChoiceElement.classList.remove('correct', 'incorrect');
+        serveNextQuestion();
+    }, 1000);
+}
+
+// This function serves the next question.
+function serveNextQuestion() {
+    if (unansweredQuestions.length === 0 || questionIndex >= maximumNumberOfQuestions) {
+        endQuiz();
+        return;
+    }
+// Update the progress indicator
+    questionIndex++;
+    progressIndicatorElement.innerText = `Question ${questionIndex} of ${maximumNumberOfQuestions}`;
+    progressBarElement.style.width = `${(questionIndex / maximumNumberOfQuestions) * 100}%`;
+// Set the active question
+    var randomQuestionIndex = Math.floor(Math.random() * unansweredQuestions.length);
+    activeQuestion = unansweredQuestions[randomQuestionIndex];
+    quizQuestionElement.innerText = activeQuestion.question;
+// Set the answer choices
+    answerChoiceElements.forEach(function (choice, index) {
+        choice.innerText = activeQuestion.choices[index];
+    });
+// Reset the answer submission
+    unansweredQuestions.splice(randomQuestionIndex, 1);
+    answerSubmissionOpen = true;
+}
+
+// This function resets the game.
+function endQuiz() {
+    localStorage.setItem('mostRecentScore', playerScore);
     window.location.assign('end.html');
 }
 
-// Add event listeners to choice elements
-choiceElements.forEach(function (choice) {
-    choice.addEventListener('click', handleAnswerSelection);
+// This function starts the game
+function startQuiz() {
+    questionIndex = 0;
+    playerScore = 0;
+    unansweredQuestions = [...quizQuestions];
+    serveNextQuestion();
+    initiateCountdown();
+}
+
+// Selecting DOM elements
+answerChoiceElements.forEach(function (choice) {
+    choice.addEventListener('click', submitAnswer);
 });
 
-// Initialize the game
-initGame();
+// Start the game
+startQuiz();
