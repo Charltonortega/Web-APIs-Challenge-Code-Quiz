@@ -9,13 +9,17 @@
 </head>
 <body>
     <div class="container">
-        <div id="end" class="flex-center flex-column">
+        <div class="flex-center flex-column" id="end">
+            <!-- Display final score to user, buttons to save score, play again and return to home page -->
+            <h1> Your total points:</h1>
             <h1 id="finalScore">0</h1>
             <form class="end-form-container">
                 <h2 id="end-text">Enter your name below to save your score!</h2>
-                <input type="text" name="name" id="username" placeholder="Enter your name">
+                <input type="text" id="username" name="name" placeholder="Enter your name">
+                <!-- Save button will not work if no values are entered "username" field" - disabled event used. -->
                 <button class="btn" id="saveScoreBtn" type="submit" onClick="saveHighScore(event)" disabled>Save</button>
             </form>
+            <!-- button links to game.html and index.html -->
             <a href="game.html" class="btn">Play Again</a>
             <a href="index.html" class="btn">Go Home</a>
         </div>
