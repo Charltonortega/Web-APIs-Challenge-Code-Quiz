@@ -5,17 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Game</title>
+    <!-- refs to styling sheets   -->
     <link rel="stylesheet" href="./assets/styles.css">
     <link rel="stylesheet" href="./assets/game.css">
 </head>
 <body>
+
     <div class="container">
+        <!-- justify position in the centre of the screen -->
         <div class="justify-center flex-column" id="game">
             <div id="hud">
-                <!-- Hud layout on top of game -->
-                <div class="hud-item">
+                <!-- Hud layout on top of game divided into 3 sections, no. of questions, score and time left-->
+                <div class="hud-item"> 
                     <p class="hud-prefix" id="progressText">
-                        Question
                     </p>
                     <!-- Progress Bar - loading effect -->
                     <div id="progressBar">
@@ -31,7 +33,7 @@
                         0
                     </h1>
                 </div>
-                <!-- Point System -->
+                <!-- Point System increment of 100pts, maxscore being 1100. -->
                 <div class="hud-item">
                     <p class="hud-prefix">
                         Score
@@ -41,9 +43,12 @@
                     </h1>
                 </div>
             </div>
+           <!-- Question layout -->
             <h1 id="question">What is the answer to this question</h1>
             <div class="choice-container">
+                <!-- Choice layout -->
                 <p class="choice-prefix">A</p>
+                <!-- Choices text -->
                 <p class="choice-text" data-number="1">Choice 1</p>
             </div>
             <div class="choice-container">
@@ -60,6 +65,7 @@
             </div>
         </div>
     </div>
+<!-- link to js file:  -->
     <script src="./assets/js/game.js"></script>
 </body>
 </html>
