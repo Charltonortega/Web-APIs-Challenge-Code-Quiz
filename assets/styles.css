@@ -1,42 +1,48 @@
- /* Imported google fonts */
+/* Imported google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
 :root {
-    background-color: rgb(47, 60, 126) ;
+    --primary-color: black;
+    --secondary-color: #940000;
+    --accent-color: #8A307F;
+    --text-color: #FFFFFF;
+    --correct-color: #77D353;
+    --incorrect-color: #E64732;
+    --progress-bar-background: rgba(255, 255,                                  255, 0.3);
+    --progress-bar-fill:  #77D353;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-size: 62.5%;
-    font-family: 'Open Sans', cursive;
+    font-size: 75%;
+    font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
     font-size: 5.5rem;
-    color: white;
+    color: var(--text-color);
     margin-bottom: 5.5rem;
-    justify-content: center;
     text-align: center;
 }
 
 h2 {
-    color: white;
+    color: var(--text-color);
     font-size: 1.5rem;
     margin-bottom: 4rem;
     text-align: center;
 }
 
+
 .container {
-    width: 100vh;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 80rem;
-    margin: 0 auto;
     padding: 2rem;
+    background-color: var(--primary-color);
 }
 
 .flex-column {
@@ -60,38 +66,58 @@ h2 {
 .hidden {
     display: none;
 }
+/* implement more animations to main page */
+.startinstructions {
+    font-family: "Open Sans", sans-serif;
+    overflow: hidden; 
+    width: max-content;
+    text-align: center;
+    margin: auto; 
+    white-space: nowrap;
+    animation: typing 3.5s steps(50, end);
+  }
+  
+  /* The typewriter animation */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
 
 .btn {
     font-size: 2.4rem;
     padding: 2rem 0;
-    width: 30rem;
+    width: 80%;
+    max-width: 30rem;
     text-align: center;
     margin-bottom: 1rem;
     text-decoration: none;
-    color:white;
-    background: #EEA47F;
+    color: var(--text-color);
+    background: var(--secondary-color);
     border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .btn:hover {
-    cursor: pointer;
-    box-shadow: 0 0.4rem 1.4rem 0 #79A7D3;
-    transition: transform 150ms;
-    transform: scale(1.03);
+    color: var(--accent-color) 50%);
+    transform: scale(1.2);
+}
+.btn:hover p
+{
+    text-color: black;
 }
 
 .btn[disabled]:hover {
     cursor: not-allowed;
-    box-shadow: none;
+    background-color: var(--secondary-color);
     transform: none;
 }
 
 #highscore-btn {
-    background:  #8A307F;
-}
-
-#highscore-btn:hover {
-    box-shadow: 0 0.4rem 1.4rem 0 #79A7D3;
+    background: var(--accent-color);
 }
 
 .end-form-container {
@@ -104,35 +130,107 @@ h2 {
 
 input {
     margin-bottom: 1rem;
-    width: 20rem;
-    padding: 1.5rem;
-    font-size: 1.8rem;
+    padding: 2rem;
+    font-size: 3rem;
     border: none;
     box-shadow: 0 0.1rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+    transition: box-shadow 0.3s ease;
 }
 
 input::placeholder {
     color: #aaa;
 }
 
+input:focus {
+    outline: none;
+    box-shadow: 0 0.2rem 2rem 0 rgba(86, 185, 235, 0.7);
+}
+
 #username {
     margin-bottom: 3rem;
     width: 100%;
-    outline: none;
 }
 
 #end-text {
     font-size: 1.9rem;
-    color: #fff;
+    color: var(--text-color);
     text-align: center;
 }
 
-#saveScoreBtn {
-    border: none;
-    
-}
 
 #clear-scores-button {
     border: none;
-    background: #8A307F;
+    background: white);
+    cursor: pointer;
+}
+#saveScoreBtn {
+    border: none;
+    cursor: pointer;
+    width: 80%;
+}
+#clear-scores-button:hover {
+    background-color: white, 10%);
+}
+
+/* Progress Bar */
+#progressBar {
+    width: 100%;
+    height: 2rem;
+    background-color: var(--progress-bar-background);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#progressBarFull {
+    width: 0;
+    height: 100%;
+    background-color: var(--progress-bar-fill);
+    transition: width 0.3s ease;
+}
+
+/* Choice Container */
+.choice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.choice-prefix {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.choice-text {
+    font-size: 2rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+
+.choice-text:hover {
+    color: var(--secondary-color);
+}
+
+.correct {
+    color: var(--correct-color) !important;
+}
+
+.incorrect {
+    color: var(--incorrect-color) !important;
+}
+
+/* High Scores */
+#highScoresList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.high-score {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
 }

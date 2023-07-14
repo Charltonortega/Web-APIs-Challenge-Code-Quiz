@@ -7,7 +7,7 @@ body {
     margin-bottom: 1.2rem;
     width: 100%;
     border-radius: 4px;
-    background: #EEA47F;
+    background: #ff8000;
     font-size: 3rem;
     min-width: 80rem;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -16,15 +16,10 @@ body {
 .choice-container:hover {
     cursor: pointer;
     box-shadow: 0 0.4rem 1.4rem 0 rgba(6, 103, 247 0.5);
-    transform: scale(1.02);
-    transform: transform 100ms;
-    box-shadow: 0 0.4rem 1.4rem 0 rgba(6, 103, 247, 0.5);
-    transform: scale(1.02);
-}
-
-.choice-prefix {
-    padding: 2rem 2.5rem;
-    color: white;
+    transform: scale(1.05);
+    transform: transform 50ms;
+    box-shadow: 0 0.4rem 1.4rem 0 white(6, 103, 247, 0.5);
+    transform: scale(1.05);
 }
 
 .choice-text {
@@ -58,7 +53,7 @@ body {
 }
 
 #progressBar {
-    width: 20rem;
+    width: 25rem;
     height: 3rem;
     border: 0.2rem solid white;
     margin-top: 2rem;
@@ -68,7 +63,7 @@ body {
 
 #progressBarFull {
     height: 100%;
-    background: #EEA47F;  
+    background: var(--progress-bar-fill);  
     width: 0%;
 }
 #question,
@@ -83,11 +78,5 @@ body {
     }
     to {
         opacity: 1;
-    }
-}
-
-@media screen and (max-width: 768) {
-    .choice-container {
-        min-width: 40rem;
     }
 }
