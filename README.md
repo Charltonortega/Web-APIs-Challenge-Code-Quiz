@@ -46,10 +46,27 @@ THEN I can save my initials and my score
   
 ## Demo
 <!-- ![CodeQuiz Demo](./assets/images/codequiz4demo.gif)  -->
-<img src="./assets/images/codequiz4demo.gif" alt="application_demo" width="fit-content">
+<img src="./assets/images/codequiz.gif" alt="application_demo" width="fit-content">
 
 ## Deployment
 
 The URL of the deployed application: https://charltonortega.github.io/Web-APIs-Challenge-Code-Quiz/
 
 The URL of the GitHub repository: https://github.com/Charltonortega/Web-APIs-Challenge-Code-Quiz
+
+## References
+
+This project was greatly influenced and inspired by several resources. Below are detailed descriptions of these resources and the extent of their influence:
+
+1. **[YouTube Tutorial](https://www.youtube.com/watch?v=f4fB9Xg2JEY&t=2996s)**: This step-by-step tutorial by Brian Design, titled "How to Make a Quiz App using HTML CSS Javascript - Vanilla Javascript Project for Beginners Tutorial" served as a primary guide for creating this proejct. Brian introduces key concepts and demonstrates how to develop a functional quiz system. Several methodologies and techniques demonstrated in this tutorial were adapted for this project. However, the code written is original and reflects my interpretation of the tutorial's concepts.
+
+If you're interested in the specifics, here are the main topics the video covers that have been adapted for this project:
+
+    - Creating a basic structure for quizzes
+    - Designing interactive questions and answer options
+    - Implementing a scoring system
+
+Please note that while these resources significantly contributed to the development of the project, the codebase for this project is original and was re-written by myself. The knowledge and methods learned from these resources have been crucial to the project's realization.
+
+Finally, a special thanks to Brian Design for their insightful and easy-to-follow tutorial.
+
